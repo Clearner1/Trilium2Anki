@@ -1,0 +1,33 @@
+# Trilium配置
+trilium:
+  server_url: "http://your-trilium-server:8080"  # Trilium服务器地址
+  api_token: "your_trilium_api_token_here"  # Trilium API Token
+
+  # 获取笔记的方式（三选一）
+  fetch_mode: "calendar"  # calendar / search / fixed_note
+  
+  # 如果是 fixed_note 模式，指定笔记ID（类似语雀单文档模式）
+  note_id: "your_note_id_here"  # 你的学习笔记ID
+  
+  # 如果是 search 模式，指定搜索关键词模板
+  search_template: "Python学习 {date}"  # {date} 会被替换为日期
+
+# LLM配置（支持OpenAI兼容接口）
+llm:
+  api_base: "https://api.deepseek.com"  # API地址（DeepSeek/OpenAI/其他兼容接口）
+  api_key: "sk-your_api_key_here"  # API密钥
+  model: "deepseek-chat"  # 模型名称（deepseek-chat / gpt-4 / gpt-3.5-turbo）
+  temperature: 0.7  # 生成温度 (0.0-1.0)
+  max_tokens: 2000  # 最大token数
+
+# 生成配置
+generation:
+  cards_per_day: 5  # 每天生成的卡片数量（设为 0 则由 LLM 自动决定数量）
+  difficulty: "适中"  # 难度：简单/适中/困难
+
+# Anki配置
+anki:
+  deck_name: "我的学习"  # 牌组名称
+  ankiconnect_url: "http://localhost:8765"  # AnkiConnect地址（通常不需要修改）
+  model_name: "问答题"  # 卡片模板名称（需要在Anki中预先创建）
+  tags: ["自动生成", "学习"]  # 标签
