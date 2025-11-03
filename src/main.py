@@ -2,7 +2,11 @@
 主程序 - Trilium笔记 - Anki卡片
 """
 import os
+import sys
 import yaml
+
+# 添加项目根目录到 Python 路径
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.anki_exporter import AnkiExporter
 from src.content_parser import ContentParser
@@ -40,9 +44,9 @@ def main():
 
     try:
         app_info = fetcher.test_connection()
-        print(f"✓ 连接成功: {app_info.get('appVersion', 'Trilium')}")
+        print(f"[OK] 连接成功: {app_info.get('appVersion', 'Trilium')}")
     except Exception as e:
-        print(f"✗ 连接失败: {e}")
+        print(f"[ERROR] 连接失败: {e}")
         return
 
     # 3. 获取今天的笔记
@@ -54,14 +58,14 @@ def main():
             note_id=config['trilium'].get('note_id')
         )
     except Exception as e:
-        print(f"✗ 获取失败: {e}")
+        print(f"[ERROR] 获取失败: {e}")
         return
 
     if not note_result:
-        print("✗ 未找到今天的笔记")
+        print("[ERROR] 未找到今天的笔记")
         return
 
-    print(f"✓ 找到笔记: {note_result.get('title', '未命名')}")
+    print(f"[OK] 找到笔记: {note_result.get('title', '未命名')}")
 
     # 4. 解析内容
     print("[4/6] 解析笔记内容...")
@@ -72,11 +76,11 @@ def main():
         today_section = parser.extract_today_section()
 
         if not today_section:
-            print("✗ 在文档中未找到今天的日期标题")
+            print("[ERROR] 在文档中未找到今天的日期标题")
             return
 
         content = today_section['content']
-        print(f"✓ 提取成功: {today_section['date']}")
+        print(f"[OK] 提取成功: {today_section['date']}")
 
     # 清理HTML
     if '<' in content and '>' in content:
@@ -86,7 +90,7 @@ def main():
     print(f"  内容长度: {len(content)} 字符")
 
     if len(content) < 50:
-        print("⚠ 警告: 内容太短")
+        print("[WARNING] 内容太短")
         return
 
     # 5. 调用LLM生成问答对
@@ -105,9 +109,9 @@ def main():
             num_cards=config['generation']['cards_per_day'],
             difficulty=config['generation']['difficulty'],
         )
-        print(f"✓ 成功生成 {len(qa_pairs)} 个问答对")
+        print(f"[OK] 成功生成 {len(qa_pairs)} 个问答对")
     except Exception as e:
-        print(f"✗ 生成失败: {e}")
+        print(f"[ERROR] 生成失败: {e}")
         return
 
 
@@ -137,18 +141,18 @@ def main():
         print("\n" + "=" * 50)
         print("任务完成！")
         print("=" * 50)
-        print(f"\n📊 统计信息:")
+        print(f"\n[STATS] 统计信息:")
         print(f"  总卡片数: {stats['total']}")
-        print(f"  ✓ 成功添加: {stats['added']}")
-        print(f"  ⊘ 跳过重复: {stats['skipped']}")
-        print(f"  ✗ 添加失败: {stats['failed']}")
+        print(f"  [OK] 成功添加: {stats['added']}")
+        print(f"  [SKIP] 跳过重复: {stats['skipped']}")
+        print(f"  [ERROR] 添加失败: {stats['failed']}")
 
         # 显示牌组信息
         deck_stats = exporter.get_deck_stats()
-        print(f"\n📚 牌组 '{deck_stats['deck_name']}' 现有 {deck_stats['card_count']} 张卡片")
+        print(f"\n[DECK] 牌组 '{deck_stats['deck_name']}' 现有 {deck_stats['card_count']} 张卡片")
 
     except Exception as e:
-        print(f"✗ 添加失败: {e}")
+        print(f"[ERROR] 添加失败: {e}")
         print("\n请检查：")
         print("1. Anki是否已启动")
         print("2. AnkiConnect插件是否已安装")
@@ -160,7 +164,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n\n程序被用户中断")
     except Exception as e:
-        print(f"\n✗ 错误: {e}")
+        print(f"\n[ERROR] 错误: {e}")
         import traceback
         traceback.print_exc()
 

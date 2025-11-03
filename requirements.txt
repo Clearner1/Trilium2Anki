@@ -1,12 +1,5 @@
-# HTTP 请求库
 requests>=2.31.0
-
-# YAML 配置文件解析
 PyYAML>=6.0.1
-
-# HTML 解析
 beautifulsoup4>=4.12.2
-
-# OpenAI API（兼容 DeepSeek 等）
 openai>=1.0.0
 
