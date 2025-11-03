@@ -1,23 +1,23 @@
 # Trilium2Anki
 
-? 自动将 Trilium 笔记转换为 Anki 记忆卡片的工具
+自动将 Trilium 笔记转换为 Anki 记忆卡片的工具
 
-## ? 功能特性
+## 功能特性
 
-- ? **自动同步**：自动从 Trilium 获取每日学习笔记
-- ? **智能生成**：使用 LLM（DeepSeek/OpenAI）生成高质量问答对
-- ? **灵活模式**：支持三种笔记获取方式（日历笔记/搜索/固定文档）
-- ? **直接导入**：通过 AnkiConnect 自动添加到 Anki
-- ?? **可配置**：支持自定义卡片数量、难度、标签等
+- **自动同步**：自动从 Trilium 获取每日学习笔记
+- **智能生成**：使用 LLM（DeepSeek/OpenAI）生成高质量问答对
+- **灵活模式**：支持三种笔记获取方式（日历笔记/搜索/固定文档）
+- **直接导入**：通过 AnkiConnect 自动添加到 Anki
+- **可配置**：支持自定义卡片数量、难度、标签等
 
-## ? 系统要求
+## 系统要求
 
 - Python 3.8+
 - Trilium Notes（需开启 ETAPI）
 - Anki（需安装 AnkiConnect 插件）
 - LLM API（支持 OpenAI 兼容接口）
 
-## ? 快速开始
+## 快速开始
 
 ### 1. 安装依赖
 
@@ -73,7 +73,7 @@ cd src
 python main.py
 ```
 
-## ? 使用说明
+## 使用说明
 
 ### 三种笔记获取模式
 
@@ -126,7 +126,7 @@ generation:
 
 **提示**：将 `cards_per_day` 设为 0 时，LLM 会根据笔记内容的丰富程度自动决定生成卡片的数量（通常 3-10 个）
 
-## ?? 项目结构
+## 项目结构
 
 ```
 Trilium2Anki/
@@ -143,21 +143,21 @@ Trilium2Anki/
 └── README.md
 ```
 
-## ? 技术栈
+## 技术栈
 
 - **Trilium API**：ETAPI
 - **LLM**：OpenAI SDK（兼容 DeepSeek 等）
 - **Anki**：AnkiConnect
 - **解析**：BeautifulSoup4
 
-## ?? 注意事项
+##  注意事项
 
 1. **敏感信息**：不要将 `config.yaml` 提交到 Git 仓库
 2. **API 配额**：注意 LLM API 的调用次数和费用
 3. **重复卡片**：程序会自动跳过重复的卡片（基于内容去重）
 4. **Anki 运行**：使用前请确保 Anki 已启动
 
-## ? 常见问题
+##  常见问题
 
 ### 连接 Trilium 失败
 
@@ -183,7 +183,7 @@ Trilium2Anki/
 - **Search 模式**：检查搜索关键词是否正确
 - **Fixed Note 模式**：确认文档中是否有今天的日期标题
 
-## ? 开发计划
+##  开发计划
 
 - [ ] 支持批量处理历史笔记
 - [ ] 添加卡片质量评分
@@ -191,15 +191,15 @@ Trilium2Anki/
 - [ ] 添加 Web UI 界面
 - [ ] 支持更多 LLM 提供商
 
-## ? 贡献
+##  贡献
 
 欢迎提交 Issue 和 Pull Request！
 
-## ? 许可证
+##  许可证
 
 MIT License
 
-## ? 作者
+##  作者
 
 欢迎交流学习！
 
